@@ -5,28 +5,14 @@ import {Card} from 'react-native-elements';
 class Contact extends Component {
 
     render() {
-        return(
-            <Card
-                title='Contact Information'
-            >
-                <Text>
-                    121 Clearwater bay road
-                </Text>
-                <Text>
-                    Clear Water Bay, Cowloon
-                </Text>
-                <Text>
-                    HONG KONG
-                </Text>
-                <Text>
-                    Tel: +85212345678
-                </Text>
-                <Text>
-                    Fax: +85287654321
-                </Text>
-                <Text>
-                    Email: confusion@food.net
-                </Text>
+        return (
+            <Card title={"Contact Information"}>
+                <Text style={{marginBottom: 10}}> 121, Clear Water Bay Road </Text>
+                <Text style={{marginBottom: 10}}> Clear Water Bay, Kowloon </Text>
+                <Text style={{marginBottom: 10}}> HONG KONG </Text>
+                <Text style={{marginBottom: 10}}> Tel: +852 1234 5678 </Text>
+                <Text style={{marginBottom: 10}}> Fax: +852 8765 4321 </Text>
+                <Text style={{marginBottom: 10}}> Email:confusion@food.net </Text>
             </Card>
         )
     }
