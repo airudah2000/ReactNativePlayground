@@ -13,7 +13,7 @@ function RenderItem(props) {
             <Card
                 featuredTitle={item.name}
                 featuredSubtitle={item.designation}
-                image={require('./images/uthappizza.png')}
+                image={item.requireImage}
             >
                 <Text style={{margin: 10}}>
                     {item.description}

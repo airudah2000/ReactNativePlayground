@@ -6,10 +6,21 @@ import Contact from './ContactComponent'
 import About from './AboutComponent'
 import DishDetail from './DishDetailComponent';
 import {createStackNavigator, createDrawerNavigator} from 'react-navigation';
+import {Icon} from 'react-native-elements';
 
 
 const MenuNavigator = createStackNavigator({
-    Menu: {screen: Menu},
+    Menu: {
+        screen: Menu,
+        navigationOptions: ({navigation}) => ({
+            headerLeft:
+                <Icon name="menu"
+                      size={24}
+                      color='white'
+                      onPress={() => navigation.toggleDrawer()}
+                />
+        })
+    },
     DishDetail: {screen: DishDetail}
 }, {
     initialRouteName: 'Menu',
@@ -28,43 +39,59 @@ const ContactNavigator = createStackNavigator({
     Contact: {screen: Contact},
 }, {
     initialRouteName: 'Contact',
-    navigationOptions: {
+    navigationOptions: ({navigation}) => ({
         headerStyle: {
             backgroundColor: '#512DA8'
         },
         headerTintColor: '#fff',
         headerTitleStyle: {
             color: '#fff'
-        }
-    }
+        },
+        headerLeft:
+            <Icon name='menu'
+                  size={24}
+                  color='white'
+                  onPress={() => navigation.toggleDrawer()}
+            />
+    })
 });
 
 const AboutNavigator = createStackNavigator({
     About: {screen: About},
 }, {
     initialRouteName: 'About',
-    navigationOptions: {
+    navigationOptions: ({navigation}) => ({
         headerStyle: {
             backgroundColor: '#512DA8'
         },
         headerTintColor: '#fff',
         headerTitleStyle: {
             color: '#fff'
-        }
-    }
+        },
+        headerLeft: <Icon name='menu'
+                          size={24}
+                          color='white'
+                          onPress={() => navigation.toggleDrawer()}
+        />
+    })
 });
 
 const HomeNavigator = createStackNavigator({
     Home: {screen: Home}
 }, {
-    navigationOptions: ({ navigation }) => ({
+    navigationOptions: ({navigation}) => ({
         headerStyle: {
             backgroundColor: '#512DA8'
         },
         headerTitleStyle: {
             color: '#fff'
         },
-        headerTintColor: '#fff'
+        headerTintColor: '#fff',
+        headerLeft: <Icon name='menu'
+                          size={24}
+                          color='white'
+                          onPress={() => navigation.toggleDrawer()}
+        />
     })
 });
 
@@ -73,28 +100,56 @@ const MainNavigator = createDrawerNavigator({
         screen: HomeNavigator,
         navigationOptions: {
             title: 'Home',
-            drawerLabel: 'Home'
+            drawerLabel: 'Home',
+            drawerIcon: ({tintColor}) => (
+                <Icon name='home'
+                      type='font-awesome'
+                      size={24}
+                      color={tintColor}
+                />
+            )
         }
     },
     About: {
         screen: AboutNavigator,
         navigationOptions: {
             title: 'About Us',
-            drawerLabel: 'About Us'
+            drawerLabel: 'About Us',
+            drawerIcon: ({tintColor}) => (
+                <Icon name='info-circle'
+                      type='font-awesome'
+                      size={24}
+                      color={tintColor}
+                />
+            )
         },
     },
     Menu: {
         screen: MenuNavigator,
         navigationOptions: {
             title: 'Menu',
-            drawerLabel: 'Menu'
+            drawerLabel: 'Menu',
+            drawerIcon: ({tintColor}) => (
+                <Icon name='list'
+                      type='font-awesome'
+                      size={24}
+                      color={tintColor}
+                />
+            )
         },
     },
     Contact: {
         screen: ContactNavigator,
         navigationOptions: {
             title: 'Contact Us',
-            drawerLabel: 'Contact Us'
+            drawerLabel: 'Contact Us',
+            drawerIcon: ({tintColor}) => (
+                <Icon name='address-card'
+                      type='font-awesome'
+                      size={22}
+                      color={tintColor}
+                />
+            )
         },
     }
 }, {
@@ -104,7 +159,7 @@ const MainNavigator = createDrawerNavigator({
 class Main extends Component {
 
     render() {
-        return(
+        return (
             <View style={{flex: 1, paddingTop: Platform.OS === 'ios' ? 0 : 0}}>
                 <MainNavigator/>
             </View>
