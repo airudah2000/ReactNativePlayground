@@ -16,8 +16,8 @@ const mapStateToProps = state => {
 function RenderItem(props) {
     const item = props.item;
 
-    if(item != null) {
-        return(
+    if (item != null) {
+        return (
             <Card
                 featuredTitle={item.name}
                 featuredSubtitle={item.designation}
@@ -38,7 +38,7 @@ class Home extends Component {
     };
 
     render() {
-        return(
+        return (
             <ScrollView>
                 <RenderItem
                     item={this.props.dishes.dishes.filter((dish) => dish.featured)[0]}
@@ -54,4 +54,4 @@ class Home extends Component {
     }
 }
 
-export default connect(mapStateToProps) (Home);
+export default connect(mapStateToProps)(Home);
