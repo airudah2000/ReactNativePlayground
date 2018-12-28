@@ -43,7 +43,7 @@ export const fetchDishes= () => (dispatch) => {
                     return response;
                 }
                 else {
-                    var error = new Error('Error ' + response.statusText)
+                    var error = new Error('Error ' + response.statusText);
                     error.response = response;
                     throw error;
                 }

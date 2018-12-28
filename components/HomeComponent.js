@@ -29,6 +29,9 @@ function RenderItem(props) {
             </Card>
         )
     }
+    else {
+        return null
+    }
 }
 
 class Home extends Component {
