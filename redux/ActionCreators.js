@@ -1,6 +1,6 @@
 import * as ActionTypes from './ActionTypes';
 import {baseUrl} from "../shared/baseUrl";
-import {comments} from "./comments";
+// import {comments} from "./comments";
 
 export const fetchComments = () => (dispatch) => {
     return fetch(baseUrl + 'comments')
@@ -9,7 +9,7 @@ export const fetchComments = () => (dispatch) => {
                 return response;
             }
             else {
-                var error = new Error('Error ' + response.statusText)
+                var error = new Error('Error ' + response.statusText);
                 error.response = response;
                 throw error;
             }
@@ -145,4 +145,15 @@ export const leadersFailed = (errmess) => ({
 export const addLeaders = (leaders) => ({
     type: ActionTypes.ADD_LEADERS,
     payload: leaders
+});
+
+export const postFavorite = (dishId) => (dispatch) => {
+    setTimeout(() => {
+        dispatch(addFavorite(dishId));
+    }, 2000);
+};
+
+export const addFavorite = (dishId) => ({
+    type: ActionTypes.ADD_FAVORITE,
+    payload: dishId
 });
