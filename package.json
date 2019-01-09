@@ -10,6 +10,7 @@
     "expo-cli": "^2.4.3",
     "react": "16.6.1",
     "react-native": "0.57.5",
+    "react-native-datepicker": "^1.7.2",
     "react-native-elements": "^1.0.0-beta7",
     "react-native-vector-icons": "^5.0.0",
     "react-native-websocket": "^1.0.2",
