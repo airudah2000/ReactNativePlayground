@@ -167,9 +167,9 @@ class DishDetail extends Component {
         this.props.postFavorite(dishId)
     }
 
-    addComment(comment) {
-        this.props.postComment(comment)
-    }
+    // addComment(comment) {
+    //     this.props.postComment(comment)
+    // }
 
     static navigationOptions = {
         title: 'Dish Details'
@@ -187,7 +187,7 @@ class DishDetail extends Component {
     submitRating() {
         console.log(JSON.stringify(this.state));
 
-        addComment();
+        // addComment();
 
         this.resetForm();
         this.setState({showModal: false})
