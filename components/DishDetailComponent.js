@@ -6,6 +6,8 @@ import {baseUrl} from "../shared/baseUrl";
 import {postFavorite} from "../redux/ActionCreators";
 import {postComment} from "../redux/ActionCreators";
 
+let commentIndex=100; //Setting an index for comments to an arbitrary value as we don't really have a db yet
+
 const mapStateToProps = state => {
     return {
         dishes: state.dishes,
@@ -118,6 +120,7 @@ function RenderModal(props) {
                     value={props.author}
                     placeholder='Author'
                     leftIcon={{ type: 'font-awesome', name: 'user-o' }}
+                    onChangeText={(text) => props.setAuthor(text)}
                 />
             </View>
 
@@ -126,6 +129,8 @@ function RenderModal(props) {
                     value={props.comment}
                     placeholder='Comment'
                     leftIcon={{type: 'font-awesome', name: 'comment-o'}}
+                    onChangeText={(text) => props.setComment(text)}
+
                 />
             </View>
 
@@ -133,7 +138,7 @@ function RenderModal(props) {
                 <Button
                     title='Submit'
                     color='#512DA8'
-                    onPress={() => props.submitRating()}
+                    onPress={() => props.saveComment()}
                 />
             </View>
             <View style={styles.formButton}>
@@ -156,10 +161,11 @@ class DishDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            rating: 0,
             author: '',
             comment: '',
-            showModal: false
+            rating: 0,
+            date: new Date().toISOString(),
+            showModal: false //Should really move this somewhere else as it gets included in the comment json
         }
     }
 
@@ -167,30 +173,39 @@ class DishDetail extends Component {
         this.props.postFavorite(dishId)
     }
 
-    // addComment(comment) {
-    //     this.props.postComment(comment)
-    // }
+    saveComment() {
+
+        // delete this.state.showModal; //This might not be necessary at all
+        // this.setState(this.state);   //Did this while debugging
+
+        this.props.postComment({
+            ...this.state,
+            dishId: this.props.navigation.getParam('dishId', ''),
+            id: ++commentIndex});
+
+        setTimeout(() => this.toggleModal(), 500);
+        this.resetForm();
+    }
 
     static navigationOptions = {
         title: 'Dish Details'
     };
 
     setRating(rating) {
-        console.log("Set rating as: " + JSON.stringify(rating));
+        // console.log("Set rating as: " + JSON.stringify(rating));
         this.setState({rating: +rating})
+    }
+
+    setAuthor(author) {
+        this.setState({author: author})
+    }
+
+    setComment(comment) {
+        this.setState({comment: comment})
     }
 
     toggleModal() {
         this.setState({showModal: !this.state.showModal})
-    }
-
-    submitRating() {
-        console.log(JSON.stringify(this.state));
-
-        // addComment();
-
-        this.resetForm();
-        this.setState({showModal: false})
     }
 
     resetForm() {
@@ -218,9 +233,11 @@ class DishDetail extends Component {
                 <RenderModal
                     showModal={this.state.showModal}
                     toggle={() => this.toggleModal()}
-                    submitRating={() => this.submitRating()}
                     reset={() => this.resetForm()}
                     setRating={(rating) => this.setRating(rating)}
+                    setAuthor={(author) => this.setAuthor(author)}
+                    setComment={(comment) => this.setComment(comment)}
+                    saveComment={() => this.saveComment()}
                 />
             </ScrollView>
         );
